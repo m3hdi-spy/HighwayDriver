@@ -6,11 +6,12 @@ public class TrafficCar : MonoBehaviour
 {
     public byte ID;
 
+    private float Speed;
     public byte SpeedRatio = 2;
     public byte SlowSpeedRatio = 4;
     private float WrongWaySpeedRatio = 1.5f;
     private float WrongWaySlowSpeedRatio = 1;
-    private float Speed;
+    
     public bool isWrongWay;
 
     [SerializeField]
@@ -36,9 +37,9 @@ public class TrafficCar : MonoBehaviour
     void FixedUpdate()
     {
         if(isWrongWay)
-            transform.position += transform.forward * Speed;
+            transform.position -= transform.up * Speed;
         else
-        transform.position -= transform.forward * Speed;
+        transform.position += transform.up * Speed;
     }
 
 
@@ -46,10 +47,10 @@ public class TrafficCar : MonoBehaviour
     {
         if(ShouldSlowDown())
         {
-            if(isWrongWay)
-                Speed = Street.GetMovingSpeed * WrongWaySlowSpeedRatio;
+            if (isWrongWay)
+            Speed = Street.GetMovingSpeed * WrongWaySlowSpeedRatio;
             else
-            Speed = Street.GetMovingSpeed / SlowSpeedRatio;
+               Speed = Street.GetMovingSpeed / SlowSpeedRatio;
            
             isChangingSpeed = true;
         }
@@ -110,12 +111,12 @@ public class TrafficCar : MonoBehaviour
         if(isWrong)
         {
             isWrongWay = true;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 180, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(-90, 180, 0));
         }
         else
         {
             isWrongWay = false;
-            transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+            transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
         }
     }
 

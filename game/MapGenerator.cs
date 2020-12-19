@@ -86,7 +86,7 @@ public class MapGenerator : MonoBehaviour
         }
         for (; n < 50; n++)
         {
-            GameObject car4 = Instantiate(TrafficCarsPrefab[0], CarsParent);
+            GameObject car4 = Instantiate(TrafficCarsPrefab[2], CarsParent);
             car4.transform.localPosition = ParkingPos * n;
             car4.transform.localPosition += new Vector3(0, 0, 200);
             car4.GetComponent<TrafficCar>().ID = L;
