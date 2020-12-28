@@ -5,6 +5,7 @@ using UnityEngine;
 public class Street : MonoBehaviour
 {
     
+
     private static float movingSpeed = 4;
     public static float GetMovingSpeed
     {
@@ -14,15 +15,15 @@ public class Street : MonoBehaviour
     void Start()
     {
         theCar = GameObject.FindGameObjectWithTag("Player").GetComponent<CarMovement>();
+       
     }
 
     void FixedUpdate()
     {
-        movingSpeed = CarMovement.CarSpeed / 100;
+        movingSpeed = CarMovement.CarSpeed / 90;
         transform.position -= Vector3.forward * movingSpeed;
+
     }
 
-
-  
 }
 

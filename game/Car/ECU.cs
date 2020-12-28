@@ -38,11 +38,8 @@ public class ECU : Car
     //--- Inputs
     private bool inputGas, inputBrake, inputLeft, inputRight, inputHBrake;
 
-    private Engine myEngine;
-
     private void Start()
     {
-        myEngine = gameObject.GetComponent<Engine>();
     }
     public void GetInputs(bool[] _inputs)
     {
@@ -51,7 +48,7 @@ public class ECU : Car
         inputLeft = _inputs[2];
         inputRight = _inputs[3];
 
-            
+
         if (inputBrake)
             PushBrake();
         else
@@ -71,7 +68,6 @@ public class ECU : Car
         //else add torque and move
         isPushGas = true;
         isPushBrake = false;
-        myEngine.Gaz(CurrentGear, true, false);
         SpeedTarget = SpeedsOfGears[CurrentGear];
         
 
@@ -81,6 +77,7 @@ public class ECU : Car
 
         Engine();
         GearBox();
+        BrakeTrail(false);
     }
 
     private void PushBrake()
@@ -92,9 +89,12 @@ public class ECU : Car
        
         SpeedTarget = SpeedsOfGears[CurrentGear];
         EnginePower = SpeedRatio[CurrentGear];
-        myEngine.Gaz(CurrentGear, false, true);
         Engine();
         GearBox();
+        if (inputRight || inputLeft)
+            BrakeTrail(false);
+        else
+            BrakeTrail(true);
     }
    
 
@@ -186,5 +186,11 @@ public class ECU : Car
         gameObject.GetComponent<CarMovement>().CarSpeed = speed;
         
     }*/
+
+    void BrakeTrail(bool braking)
+    {
+        Transform tParent = transform.Find("Trails");
+        GameObject.Find("VehicleWheelsTrail").GetComponent<WheelsTrail>().ActiveTrail(braking, tParent.position, tParent.GetChild(0).position, tParent.GetChild(1).position);
+    }
 
 }

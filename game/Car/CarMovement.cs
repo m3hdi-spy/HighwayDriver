@@ -87,7 +87,7 @@ public class CarMovement : MonoBehaviour
         float currentSteerPower = steerPower + (CarSpeed / 150);
         Vector3 targetPos = new Vector3(SteeringPlace[currentLane], transform.position.y, transform.position.z);
         Vector3 newPos = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * currentSteerPower);
-        Debug.Log(Mathf.Lerp(0, 1, Time.deltaTime * currentSteerPower));
+        
         
         transform.position = newPos;
         if(currentSteering == SteeringMode.Left)
